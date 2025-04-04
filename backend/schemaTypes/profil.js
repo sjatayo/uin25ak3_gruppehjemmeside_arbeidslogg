@@ -1,1 +1,5 @@
-export const profil = []
+export const profil = {
+  name: 'profil',
+  title: 'Profil',
+  type: 'document',
+}
