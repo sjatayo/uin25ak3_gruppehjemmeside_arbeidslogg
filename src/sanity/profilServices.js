@@ -1,17 +1,15 @@
-import client from "./client";
+import client from "./client"
 
-export async function getProfiles() {
-    const data = await client.fetch(
-        `*[_type == "profil"] {
+export async function fetchProfiles() {
+  const data = await client.fetch(
+    `*[_type == "profile"] {
   name,
   description,
-  interesse1,
-  interesse2,
-  interesse3,
+  interests,
   "imageUrl": image.asset->url,
   slug
 }
 `
-    )
-    return data;
+  )
+  return data
 }

@@ -1,58 +1,44 @@
 import "../assets//styles/profilePage.scss"
 import "../assets//styles/log.scss"
+import { fetchProfiles } from "../sanity/profilServices"
+import { useEffect, useState } from "react"
 
 export default function ProfilePage() {
-  const member = {
-    id: "1",
-    name: "Kari Nordmann",
-    image: "https://placehold.co/400x400",
-    bio: "Frontend-utvikler med fokus på brukeropplevelser...",
-    interests: ["JavaScript", "Accessibility", "Animasjon"],
-    logs: [
-      { title: "Fikset login-bug", date: "2024-03-10", timeUsed: "1" },
-      { title: "Workshop om testing", date: "2024-03-12", timeUsed: "3" },
-    ],
+  const [profiles, setProfiles] = useState([])
+
+  const getAllProfiles = async () => {
+    const data = await fetchProfiles()
+    console.log(data)
+    setProfiles(data)
   }
+
+  useEffect(() => {
+    getAllProfiles()
+  }, [])
 
   return (
     <>
-      <img
-        src={member.image}
-        alt={`Profilbilde av ${member.name}`}
-        className="profile-image"
-      />
-      <section className="profile-page">
-        <h1>{member.name}</h1>
-
-        <article className="bio">
-          <p>{member.bio}</p>
-        </article>
-
-        <article className="interests">
-          <h2>Interesser</h2>
-          <ul className="interests-li">
-            {member.interests.map((interest, index) => (
+      {profiles?.map((profile, index) => (
+        <section key={index} className="profile-page">
+          <img
+            src={profile.imageUrl}
+            alt={`Portrettbilde av: ${profile.name}`}
+          ></img>
+          <h1 key={index}>{profile.name}</h1>
+          <article className="bio">
+            <p>{profile.description}</p>
+          </article>
+          <article className="interests">
+            <h2>Interesser</h2>
+            <ul className="interest-li"></ul>
+            {profile.interests.map((interest, index) => (
               <li key={index} className="interest-tag">
                 {interest}
               </li>
             ))}
-          </ul>
-        </article>
-
-        <section className="log">
-          <h2>Arbeidslogg</h2>
-          <ul className="log-input">
-            {member.logs.map((log, index) => (
-              <li key={index} className="log-item">
-                <p>{log.date}</p>
-                <p>{member.name}</p>
-                <p>{log.title}</p>
-                <p>{log.timeUsed}</p>
-              </li>
-            ))}
-          </ul>
+          </article>
         </section>
-      </section>
+      ))}
     </>
   )
 }

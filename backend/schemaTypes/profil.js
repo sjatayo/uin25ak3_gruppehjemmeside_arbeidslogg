@@ -14,19 +14,10 @@ export const profil = {
       type: 'text',
     },
     {
-      name: 'interest1',
-      title: 'Interesse 1',
-      type: 'text',
-    },
-    {
-      name: 'interest2',
-      title: 'Interesse 2',
-      type: 'text',
-    },
-    {
-      name: 'interest3',
-      title: 'Interesse 3',
-      type: 'text',
+      name: 'interests',
+      title: 'Interesser',
+      type: 'array',
+      of: [{type: 'string'}],
     },
     {
       name: 'image',
