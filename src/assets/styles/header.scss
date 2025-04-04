@@ -1,0 +1,45 @@
+.globalheader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: rgb(74, 30, 122);
+}
+
+.logo {
+  text-decoration: none;
+  color: white;
+  /* Kilde til "optimal font-size: https://matthewjamestaylor.com/responsive-font-size*/
+  font-size: calc(25px + 0.390625vw);
+  font-weight: bold;
+  margin: 1rem;
+  margin-left: 2rem;
+}
+
+.global-nav {
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin: 1.5rem;
+
+    li {
+      list-style: none;
+
+      a {
+        text-decoration: none;
+        color: white;
+        font-size: calc(15px + 0.390625vw);
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .header-home:after {
+    content: "|";
+    margin-left: 1rem;
+    color: white;
+  }
+}
