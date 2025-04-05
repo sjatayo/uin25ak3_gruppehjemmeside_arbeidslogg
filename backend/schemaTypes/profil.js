@@ -5,7 +5,7 @@ export const profil = {
   fields: [
     {
       name: 'name',
-      title: 'Name',
+      title: 'Navn',
       type: 'string',
     },
     {
