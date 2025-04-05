@@ -12,7 +12,7 @@ export default function Header() {
       setProfiles(data)
     }
     getAllProfiles()
-  })
+  }, [])
 
   return (
     <header className="globalheader">
