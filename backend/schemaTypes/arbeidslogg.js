@@ -29,18 +29,22 @@ export const logg = {
       title: 'Tid Brukt',
       name: 'tidBrukt',
       type: 'string',
+      type: 'text',
+    },
+    {
+      name: 'loggslug',
+      title: 'Slug',
+      type: 'slug',
       options: {
-        list: [
-          '1 time',
-          '2 timer',
-          '3 timer',
-          '4 timer',
-          '5 timer',
-          '6 timer',
-          '7 timer',
-          '8 timer',
-          '9 timer',
-        ],
+        source: 'name',
+        slugify: (input) =>
+          input
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace('æ', 'ae')
+            .replace('å', 'aa')
+            .replace('ø', 'o')
+            .slice(0, 200),
       },
     },
   ],
