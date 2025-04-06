@@ -1,7 +1,19 @@
+import { useEffect, useState } from "react"
 import "../assets//styles/header.scss"
 import { NavLink } from "react-router-dom"
+import { fetchProfiles } from "../sanity/profilServices"
 
 export default function Header() {
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+    const getAllProfiles = async () => {
+      const data = await fetchProfiles()
+      setProfiles(data)
+    }
+    getAllProfiles()
+  }, [])
+
   return (
     <header className="globalheader">
       <NavLink to="/" className="logo">
@@ -12,18 +24,12 @@ export default function Header() {
           <li className="header-home">
             <NavLink to="/">Hjem</NavLink>
           </li>
-          <li>
-            <NavLink to="1">Samuel</NavLink>
-          </li>
-          <li>
-            <NavLink to="2">Jonas</NavLink>
-          </li>
-          <li>
-            <NavLink to="3">Kristian</NavLink>
-          </li>
-          <li>
-            <NavLink to="4">Victor</NavLink>
-          </li>
+
+          {profiles.map((profile) => (
+            <li key={profile._id}>
+              <NavLink to={`/${profile.slug.current}`}>{profile.name}</NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

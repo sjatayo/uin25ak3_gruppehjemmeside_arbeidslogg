@@ -9,6 +9,11 @@ export const profil = {
       type: 'string',
     },
     {
+      name: 'email',
+      title: 'E-post',
+      type: 'string',
+    },
+    {
       name: 'description',
       title: 'Beskrivelse',
       type: 'text',
