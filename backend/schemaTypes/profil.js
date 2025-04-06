@@ -1,3 +1,5 @@
+import {logg} from './arbeidslogg'
+
 export const profil = {
   name: 'profile',
   title: 'Profil',
