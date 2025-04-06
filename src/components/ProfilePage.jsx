@@ -27,20 +27,22 @@ export default function ProfilePage() {
             src={profile.imageUrl}
             alt={`Portrettbilde av: ${profile.name}`}
           ></img>
-          <h1>{profile.name}</h1>
-          <article className="bio">
-            <p>{profile.description}</p>
-          </article>
-          <article className="interests">
-            <h2>Interesser</h2>
-            <ul className="interest-li">
-              {profile.interests.map((interest, index) => (
-                <li key={index} className="interest-tag">
-                  {interest}
-                </li>
-              ))}
-            </ul>
-          </article>
+          <div className="flex-column">
+            <h1>{profile.name}</h1>
+            <article className="bio">
+              <p>{profile.description}</p>
+            </article>
+            <article className="interests">
+              <h2>Interesser</h2>
+              <ul className="interest-li">
+                {profile.interests.map((interest, index) => (
+                  <li key={index} className="interest-tag">
+                    {interest}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </div>
         </section>
       ))}
     </>

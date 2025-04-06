@@ -7,6 +7,8 @@ import Header from "./components/Header"
 import Layout from "./components/Layout"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./components/Home"
+import "./assets/styles/style.scss"
+
 
 function App() {
   const [count, setCount] = useState(0)
