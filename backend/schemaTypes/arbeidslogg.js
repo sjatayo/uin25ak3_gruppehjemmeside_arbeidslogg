@@ -17,7 +17,7 @@ export const logg = {
       name: 'name',
       type: 'string',
       options: {
-        list: ['Jonas Markus', 'Samuel Atayo', 'Victor Tønneberg', 'Kristian Larsen'],
+        list: ['Jonas Markus', 'Samuel', 'Victor', 'Kristian'],
       },
     },
     {
