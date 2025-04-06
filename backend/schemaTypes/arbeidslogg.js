@@ -1,10 +1,10 @@
 export const logg = {
-  name: 'comment',
-  title: 'comment',
+  name: 'logg',
+  title: 'logg',
   type: 'document',
   fields: [
     {
-      title: 'date',
+      title: 'Date',
       name: 'date',
       type: 'date',
       options: {
@@ -28,12 +28,11 @@ export const logg = {
     {
       title: 'Tid Brukt',
       name: 'tidBrukt',
-      type: 'string',
       type: 'text',
     },
     {
-      name: 'loggslug',
-      title: 'Slug',
+      name: 'slug',
+      title: 'Slug Logg',
       type: 'slug',
       options: {
         source: 'name',
