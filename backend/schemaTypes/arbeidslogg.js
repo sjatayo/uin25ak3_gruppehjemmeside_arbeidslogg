@@ -13,11 +13,16 @@ export const logg = {
       },
     },
     {
-      title: 'Navn',
-      name: 'name',
+      title: 'Person',
+      name: 'personId',
       type: 'string',
       options: {
-        list: ['Jonas Markus', 'Samuel', 'Victor', 'Kristian'],
+        list: [
+          {title: 'Jonas Markus', value: 'Jonas Markus'},
+          {title: 'Kristian', value: 'Kristian'},
+          {title: 'Samuel', value: 'Samuel'},
+          {title: 'Victor', value: 'Victor'},
+        ],
       },
     },
     {
@@ -26,24 +31,16 @@ export const logg = {
       type: 'text',
     },
     {
-      title: 'Tid Brukt',
-      name: 'tidBrukt',
-      type: 'text',
-    },
-    {
-      name: 'slug',
-      title: 'Slug Logg',
-      type: 'slug',
+      title: 'Tid brukt',
+      name: 'tidbrukt',
+      type: 'string',
       options: {
-        source: 'name',
-        slugify: (input) =>
-          input
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace('æ', 'ae')
-            .replace('å', 'aa')
-            .replace('ø', 'o')
-            .slice(0, 200),
+        list: [
+          {title: '1 time', value: '1 time'},
+          {title: '2 timer', value: '2 timer'},
+          {title: '3 timer', value: '3 timer'},
+          {title: '4 timer', value: '4 timer'},
+        ],
       },
     },
   ],
