@@ -16,6 +16,9 @@ export const logg = {
       title: 'Navn',
       name: 'name',
       type: 'string',
+      options: {
+        list: ['Jonas Markus', 'Samuel Atayo', 'Victor Tønneberg', 'Kristian Larsen'],
+      },
     },
     {
       title: 'Description',
@@ -25,7 +28,20 @@ export const logg = {
     {
       title: 'Tid Brukt',
       name: 'tidBrukt',
-      type: 'number',
+      type: 'string',
+      options: {
+        list: [
+          '1 time',
+          '2 timer',
+          '3 timer',
+          '4 timer',
+          '5 timer',
+          '6 timer',
+          '7 timer',
+          '8 timer',
+          '9 timer',
+        ],
+      },
     },
   ],
 }
