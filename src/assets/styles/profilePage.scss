@@ -15,9 +15,10 @@ main{
         margin-top: 4rem;
         gap: 3rem;
         img {
-            max-height: 500px;
+            height: 500px;
+            min-width: 500px;
             align-self: flex-start;
-            
+            object-fit: cover;
         }
         .flex-container {
             flex-direction: column;
