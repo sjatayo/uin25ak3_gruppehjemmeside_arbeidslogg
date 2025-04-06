@@ -9,7 +9,7 @@ export const logg = {
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        calenderTodayLabel: 'Today',
+        calendarTodayLabel: 'Today',
       },
     },
     {
