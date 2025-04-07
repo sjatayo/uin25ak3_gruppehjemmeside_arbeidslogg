@@ -1,14 +1,27 @@
-import client from "./client";
+import client from "./client"
 
-export async function fetchloggs() {
+export async function fetchAllLogs() {
   const data = await client.fetch(
-    `*[_type == "logg"] {
+    `*[_type == "logg"] | order(date desc) {
     date,
-    name,
+    personId,
     description,
-    tidBrukt,
-    "slug": loggslug.current
+    tidbrukt
   }`
-  );
-  return data;
+  )
+  return data
 }
+
+export async function fetchLogByPerson() {
+  const data = await client.fetch(
+    `*[_type == "logg" && personId == $personId] | order(date desc) {
+    _id,
+    date,
+    description,
+    tidbrukt
+}`
+  )
+  return data
+}
+
+// For fetchLogByPerson må man sende med parameter så vi henter ut riktig personId. Må se på hvordan dette kan gjøres videre.
