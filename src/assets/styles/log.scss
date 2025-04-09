@@ -1,1 +1,58 @@
 @use "colors" as *;
+
+.logs {
+  width: 100%;
+  max-width: 80%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .log-single {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: $grey;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    // AI-kilde:
+    // Spurte ChatGPT 07.04.25 hvordan det var mulig å begrense plass til hvert <p>-element og fikk følgende kode som svar.
+    p {
+      margin: 0;
+      font-size: 1rem;
+
+      &:nth-child(1) {
+        width: 10%;
+        flex-shrink: 0;
+      }
+
+      &:nth-child(2) {
+        width: 15%;
+        flex-shrink: 0;
+      }
+
+      &:nth-child(3) {
+        flex: 1;
+        min-width: 20%;
+      }
+
+      &:nth-child(4) {
+        width: 10%;
+        text-align: right;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  /* Kilde: https://stackoverflow.com/questions/5577364/make-the-first-character-uppercase-in-css */
+  .firstname:first-letter {
+    text-transform: uppercase;
+  }
+}

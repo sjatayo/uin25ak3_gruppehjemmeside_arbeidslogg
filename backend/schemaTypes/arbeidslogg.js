@@ -18,10 +18,10 @@ export const logg = {
       type: 'string',
       options: {
         list: [
-          {title: 'Jonas Markus', value: 'Jonas Markus'},
-          {title: 'Kristian', value: 'Kristian'},
-          {title: 'Samuel', value: 'Samuel'},
-          {title: 'Victor', value: 'Victor'},
+          {title: 'Jonas Markus', value: 'jonas'},
+          {title: 'Kristian', value: 'kristian'},
+          {title: 'Samuel', value: 'samuel'},
+          {title: 'Victor', value: 'victor'},
         ],
       },
     },

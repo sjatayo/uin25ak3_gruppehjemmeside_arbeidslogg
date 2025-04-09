@@ -6,16 +6,19 @@ main{
     align-items: center;
     justify-content: center;
     
-    section {
+    .profile-page {
         display: flex;
         flex-direction: row;
+        justify-content:space-between;
         width: 80%;
+        height: 50%;
         margin-top: 4rem;
         gap: 3rem;
         img {
-            width: 70%;
-            height: 400px;
-            align-self: flex-start;   
+            height: 500px;
+            width: 500px;
+            align-self: flex-start;
+            object-fit: cover;
         }
         .flex-container {
             flex-direction: column;
@@ -26,17 +29,25 @@ main{
             text-align: left;
         }
         .bio {
-            width: auto;
-            font-size: 1rem;
+            font-size: 1.1rem;
           
         }
         .interests {
             display: flex;
             flex-direction: column;
-            font-size: 1.5rem;
-            .interests-li {
-                font-size: 0.5rem;
-            }
+            font-size: 1rem;
+            
         }
     }
+}
+
+@media only screen and (max-width: 800px) {
+    .profile-page {
+        flex-direction: column !important;
+          }
+          .profile-page img {
+        display: block;
+        margin: 0;
+        align-self: flex-start;
+        }
 }
