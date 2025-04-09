@@ -6,23 +6,35 @@ import { useParams } from "react-router-dom"
 import { fetchLogByPerson } from "../sanity/loggServices"
 
 export default function ProfilePage() {
+  // Setter opp state for å lagre profiler
   const [profiles, setProfiles] = useState([])
+
+  // Henter parameter "slug" fra URL ved hjelp av useParams
   const { slug } = useParams()
+
+  // Setter opp state for å lagre logger
   const [logs, setLogs] = useState([])
 
+  // Asynkron funksjon for å hente alle profiler fra profilServices.js (Sanity)
   const getAllProfiles = async () => {
     const data = await fetchProfiles()
+    // Filtrerer ut profilen som matcher slug.
     const clickedProfile = data.filter((p) => p.slug.current === slug)
+    // Logger til console for feedback
     console.log("Profiles:", data)
+    // Oppdaterer staten med den filtrerte profilen
     setProfiles(clickedProfile)
   }
 
+  // Asynkron funksjon for å hente logger basert på personId
   const getLogByPerson = async (personId) => {
     const data = await fetchLogByPerson(personId)
     console.log("Logs:", data)
+    // Oppdaterer staten med loggene som hentes
     setLogs(data)
   }
 
+  // useEffect som kjører når slug endres.
   useEffect(() => {
     getAllProfiles()
   }, [slug])
@@ -30,14 +42,15 @@ export default function ProfilePage() {
   useEffect(() => {
     // Venter til profiles er lastet og ikke er tom
     if (profiles.length > 0) {
+      // Henter personId fra første profil i listen
       const personId = profiles[0].slug.current
       getLogByPerson(personId)
     }
-  }, [profiles]) // Kjør på nytt når profiles endrer seg
+  }, [profiles]) // useEffect Kjører på nytt hvis profiles endrer seg
 
   return (
     <>
-      {/* Seksjon for profil */}
+      {/* Seksjon for profil -- Bruker .map for å skrive ut nødvendig data */}
       {profiles?.map((profile) => (
         <section key={profile._id} className="profile-page">
           <img
@@ -63,7 +76,7 @@ export default function ProfilePage() {
         </section>
       ))}
 
-      {/* Seksjon for logg */}
+      {/* Seksjon for logg -- Bruker .map for å skrive ut nødvendig data*/}
       <section className="logs">
         <h2>Arbeidslogg</h2>
         {logs?.map((log) => (
