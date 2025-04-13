@@ -1,11 +1,13 @@
 import "../assets/styles/home.scss";
+import "../assets/styles/log.scss";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { fetchProfiles } from "../sanity/profilServices";
-import { fetchLogByPerson } from "../sanity/loggServices";
+import { fetchAllLogs } from "../sanity/loggServices";
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
-  const [logsByPerson, setLogsByPerson] = useState({});
+  const [combinedLogs, setCombinedLogs] = useState([]);
   const [loadingProfiles, setLoadingProfiles] = useState(true);
   const [loadingLogs, setLoadingLogs] = useState(true);
 
@@ -24,29 +26,28 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    async function loadLogsForProfiles() {
-      if (profiles.length > 0) {
-        const logsMap = {};
-        await Promise.all(
-          profiles.map(async (profile) => {
-            try {
-              const logs = await fetchLogByPerson(profile._id);
-              logsMap[profile._id] = logs;
-            } catch (error) {
-              console.error(`Error fetching logs for profile ${profile._id}:`, error);
-              logsMap[profile._id] = [];
-            }
-          })
-        );
-        setLogsByPerson(logsMap);
+    async function loadAllLogs() {
+      try {
+        const logs = await fetchAllLogs();
+        setCombinedLogs(logs);
+      } catch (error) {
+        console.error("Error fetching logs:", error);
+      } finally {
         setLoadingLogs(false);
       }
     }
-    loadLogsForProfiles();
-  }, [profiles]);
+    loadAllLogs();
+  }, []);
+
+  const getProfileName = (log) => {
+    const matchedProfile = profiles.find(
+      (profile) => profile.slug.current === log.personId
+    );
+    return matchedProfile ? matchedProfile.name : "Ukjent bruker";
+  };
 
   return (
-    <main className="home">
+    <div className="home">
       <h1>Hjem</h1>
       <section className="home-members">
         <h2>Medlemmer</h2>
@@ -54,39 +55,41 @@ export default function Home() {
           <p>Laster medlemmer…</p>
         ) : (
           profiles.map((profile) => (
-            <article key={profile._id} className="home-profile-card">
-              <img
-                src={profile.imageUrl}
-                alt={`Portrettbilde av: ${profile.name}`}
-              />
-              <header className="home-card-content">
-                <h1>{profile.name}</h1>
-                <p>{profile.email}</p>
-              </header>
-              <section className="home-logs">
-                <h3>Logger for {profile.name}</h3>
-                {loadingLogs ? (
-                  <p>Laster logger…</p>
-                ) : logsByPerson[profile._id] && logsByPerson[profile._id].length > 0 ? (
-                  <ul className="home-log-list">
-                    {logsByPerson[profile._id].map((log, index) => (
-                      <li key={log._id || index} className="home-log-item">
-                        <div className="home-log-description">{log.description}</div>
-                        <div className="home-log-meta">
-                          <span>{new Date(log.date).toLocaleString()}</span>
-                          <span>{log.tidbrukt} timer</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>Ingen logger funnet</p>
-                )}
-              </section>
-            </article>
+            <Link
+            key={profile._id}
+            to={`/${profile.slug.current}`}
+            className="home-profile-card"
+          >
+            <img
+              src={profile.imageUrl}
+              alt={`Portrettbilde av: ${profile.name}`}
+            />
+            <header className="home-card-content">
+              <h1>{profile.name}</h1>
+              <p>{profile.email}</p>
+            </header>
+          </Link>
           ))
         )}
       </section>
-    </main>
+
+      <section className="logs">
+        <h2 className="center-heading">Arbeidslogg</h2>
+        {loadingLogs ? (
+          <p>Laster logger…</p>
+        ) : combinedLogs.length > 0 ? (
+          combinedLogs.map((log) => (
+            <article key={log._id} className="log-single">
+              <p>{new Date(log.date).toLocaleString()}</p>
+              <p className="firstname">{getProfileName(log)}</p>
+              <p>{log.description}</p>
+              <p>{log.tidbrukt} timer</p>
+            </article>
+          ))
+        ) : (
+          <p>Ingen logger funnet</p>
+        )}
+      </section>
+    </div>
   );
 }
