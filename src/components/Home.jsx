@@ -80,10 +80,10 @@ export default function Home() {
         ) : combinedLogs.length > 0 ? (
           combinedLogs.map((log) => (
             <article key={log._id} className="log-single">
-              <p>{new Date(log.date).toLocaleString()}</p>
+              <p>{log.date}</p>
               <p className="firstname">{getProfileName(log)}</p>
               <p>{log.description}</p>
-              <p>{log.tidbrukt} timer</p>
+              <p>{log.tidbrukt}</p>
             </article>
           ))
         ) : (
