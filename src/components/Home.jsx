@@ -1,50 +1,50 @@
-import "../assets/styles/home.scss";
-import "../assets/styles/log.scss";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { fetchProfiles } from "../sanity/profilServices";
-import { fetchAllLogs } from "../sanity/loggServices";
+import "../assets/styles/home.scss"
+import "../assets/styles/log.scss"
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { fetchProfiles } from "../sanity/profilServices"
+import { fetchAllLogs } from "../sanity/loggServices"
 
 export default function Home() {
-  const [profiles, setProfiles] = useState([]);
-  const [combinedLogs, setCombinedLogs] = useState([]);
-  const [loadingProfiles, setLoadingProfiles] = useState(true);
-  const [loadingLogs, setLoadingLogs] = useState(true);
+  const [profiles, setProfiles] = useState([])
+  const [combinedLogs, setCombinedLogs] = useState([])
+  const [loadingProfiles, setLoadingProfiles] = useState(true)
+  const [loadingLogs, setLoadingLogs] = useState(true)
 
   useEffect(() => {
     async function loadProfiles() {
       try {
-        const data = await fetchProfiles();
-        setProfiles(data);
+        const data = await fetchProfiles()
+        setProfiles(data)
       } catch (error) {
-        console.error("Error fetching profiles:", error);
+        console.error("Error fetching profiles:", error)
       } finally {
-        setLoadingProfiles(false);
+        setLoadingProfiles(false)
       }
     }
-    loadProfiles();
-  }, []);
+    loadProfiles()
+  }, [])
 
   useEffect(() => {
     async function loadAllLogs() {
       try {
-        const logs = await fetchAllLogs();
-        setCombinedLogs(logs);
+        const logs = await fetchAllLogs()
+        setCombinedLogs(logs)
       } catch (error) {
-        console.error("Error fetching logs:", error);
+        console.error("Error fetching logs:", error)
       } finally {
-        setLoadingLogs(false);
+        setLoadingLogs(false)
       }
     }
-    loadAllLogs();
-  }, []);
+    loadAllLogs()
+  }, [])
 
   const getProfileName = (log) => {
     const matchedProfile = profiles.find(
       (profile) => profile.slug.current === log.personId
-    );
-    return matchedProfile ? matchedProfile.name : "Ukjent bruker";
-  };
+    )
+    return matchedProfile ? matchedProfile.name : "Ukjent bruker"
+  }
 
   return (
     <div className="home">
@@ -56,19 +56,19 @@ export default function Home() {
         ) : (
           profiles.map((profile) => (
             <Link
-            key={profile._id}
-            to={`/${profile.slug.current}`}
-            className="home-profile-card"
-          >
-            <img
-              src={profile.imageUrl}
-              alt={`Portrettbilde av: ${profile.name}`}
-            />
-            <header className="home-card-content">
-              <h1>{profile.name}</h1>
-              <p>{profile.email}</p>
-            </header>
-          </Link>
+              key={profile._id}
+              to={`/${profile.slug.current}`}
+              className="home-profile-card"
+            >
+              <img
+                src={profile.imageUrl}
+                alt={`Portrettbilde av: ${profile.name}`}
+              />
+              <header className="home-card-content">
+                <h1>{profile.name}</h1>
+                <p>{profile.email}</p>
+              </header>
+            </Link>
           ))
         )}
       </section>
@@ -91,5 +91,5 @@ export default function Home() {
         )}
       </section>
     </div>
-  );
+  )
 }
